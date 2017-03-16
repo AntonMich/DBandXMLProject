@@ -1,3 +1,4 @@
+package pack;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,21 +9,38 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Создать java приложение, выполняющее две основные функции:
+1) выгрузка содержимого таблицы БД в XML файл;
+2) синхронизация содержимого таблицы БД по заданному XML файлу.
+ * 
+ * @author AntonM
+ * @version 0.2.3
+ * 
+ * <p>
+ * ConnectionDB - класс для подключения к БД
+ * </p>
+ * 
+ * */
+
 public class ConnectionDB {
 
 	
 	final  static Logger logger=Logger.getLogger(ConnectionDB.class);
-	public static Connection con;
-	
 
-	public static void connectionDB(){
+	/**
+	 * @return con - подключение к БД, если все успешно
+	 * */
+	public Connection connectionDB(){
 		
 		try {
 			Properties props = new Properties();
+			//читаем файлик свойств подключения
 			FileInputStream in;
 			in = new FileInputStream("property/db.properties");
 			props.load(in);
 			in.close();
+			//обьявляем параметры для JDBC
 			String driver = props.getProperty("jdbc.driver");
 			if (driver != null) {
 			    Class.forName(driver) ;
@@ -31,10 +49,11 @@ public class ConnectionDB {
 			String url = props.getProperty("jdbc.url");
 			String username = props.getProperty("jdbc.username");
 			String password = props.getProperty("jdbc.password");
-
-			con = DriverManager.getConnection(url, username, password);
-			System.out.println("Connect");
+			//создаем подключение
+			Connection con = DriverManager.getConnection(url, username, password);
+			System.out.println("Connect to DB");
 			logger.info("OK... connection to DB");
+			return con;
 		} catch (FileNotFoundException e) {
 			System.out.println("File with properties not found");
 			logger.error("File with properties not found   "+e);
@@ -55,7 +74,8 @@ public class ConnectionDB {
 			logger.error("Can't connection to database  "+e);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
+		return null;		
 		
 	}
 

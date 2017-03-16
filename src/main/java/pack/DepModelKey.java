@@ -1,3 +1,4 @@
+package pack;
 // Данный класс не используется
 public class DepModelKey{
 	private String depCode;

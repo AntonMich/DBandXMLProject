@@ -1,4 +1,17 @@
-
+package pack;
+/**
+ * Создать java приложение, выполняющее две основные функции:
+1) выгрузка содержимого таблицы БД в XML файл;
+2) синхронизация содержимого таблицы БД по заданному XML файлу.
+ * 
+ * @author AntonM
+ * @version 0.2.3
+ * 
+ * <p>
+ * DepModel - класс для описания сущности 
+ * </p>
+ * 
+ * */
 public class DepModel{
 
 	private String description;
@@ -51,7 +64,11 @@ public class DepModel{
 		return result;
 	}
 
-
+	/**
+	 * Сравнивает обьекты класса DepModel по составному ключу DepCode и DepJob
+	 * @param obj - обьект каст - DepModel
+	 * @return true/false
+	*/
 	public boolean equalsKey(Object obj){
 		DepModel other = (DepModel) obj;
 		if (this.getDepCode().equals(other.getDepCode())&& this.getDepJob().equals(other.getDepJob())){
@@ -59,6 +76,11 @@ public class DepModel{
 		}
 		return false;	
 	}
+	/**
+	 * Сравнивает обьекты класса DepModel по всем свойствам
+	 * @param obj - обьект каст - DepModel
+	 * @return true/false
+	*/
 	public boolean equalsFull(Object obj){
 		DepModel other = (DepModel) obj;
 		if (this.getDepCode().equals(other.getDepCode())
